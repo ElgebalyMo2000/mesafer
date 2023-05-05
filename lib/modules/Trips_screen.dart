@@ -27,7 +27,12 @@ class trips_screen extends StatelessWidget {
           ],
         ),
       
-      body: Column(
+      body: ListView.builder(
+        itemCount: 1,
+        
+        
+        itemBuilder: (context, index) {
+        return Column(
         children: [
           SizedBox(height: 40,),
           Container(
@@ -115,7 +120,14 @@ class trips_screen extends StatelessWidget {
             ),
           ),
         ],
-      )
+      );
+      },)
+      
+      
+      
     );
   }
 }
+      
+      
+     
