@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "662322157210",
+    "project_id": "mesafer-431a0",
+    "storage_bucket": "mesafer-431a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662322157210:android:ec280272277f3fe19a3123",
+        "android_client_info": {
+          "package_name": "com.example.mesafer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662322157210-4t06i9le3gsh4dtlm4raso1hcsof2kdr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7_0kqfEis0v5WWvtp-LyrxxTze9uRHxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662322157210-4t06i9le3gsh4dtlm4raso1hcsof2kdr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
