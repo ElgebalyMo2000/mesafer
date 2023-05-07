@@ -102,10 +102,11 @@ class trips_screen extends StatelessWidget {
               ),
               SizedBox(height: 10,),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 
                 children: [
                   Text('01/01/2022',style: TextStyle(color: Colors.black87,fontSize: 18),),
-                  SizedBox(width: MediaQuery.of(context).size.width*0.5),
+                  
 
                  Row(
                   children: [

@@ -20,7 +20,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: emai, password: password);
-
+        
       emit(RegisterSuccess());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

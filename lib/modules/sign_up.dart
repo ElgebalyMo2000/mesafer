@@ -25,6 +25,9 @@ class Sign_up extends StatelessWidget {
   String? password;
   String? confirmPassword;
 
+
+  
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(

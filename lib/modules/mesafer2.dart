@@ -106,7 +106,7 @@ class ChooseTicket extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
 
               ),
               child: Center(child: Text('Choose your seat position',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),)),

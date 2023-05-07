@@ -52,6 +52,7 @@ Widget defaultFormField2 ({
   TextInputType? type,
   Text ? label,
   IconData ? prefix,
+  bool enable = true,
  
  Function (String) ? onchange,
  Function (String) ? onSubmitte,
@@ -64,6 +65,7 @@ Widget defaultFormField2 ({
   return TextFormField(
   controller: controller,
   keyboardType: type,
+  enabled: enable,
   onFieldSubmitted: onSubmitte, 
   onChanged: onchange,
   validator: (value) {

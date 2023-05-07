@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mesafer/modules/login_screen.dart';
+import 'package:mesafer/pages/signin_page.dart';
 
 
 class More_screen extends StatelessWidget {
@@ -107,7 +108,7 @@ class More_screen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginScreen(),), (route) => false);
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignInPage(),), (route) => false);
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),

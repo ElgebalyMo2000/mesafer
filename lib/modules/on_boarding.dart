@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mesafer/modules/login_screen.dart';
+import 'package:mesafer/pages/signin_page.dart';
 import 'package:mesafer/shared/components/components.dart';
 
 class on_boarding extends StatelessWidget {
@@ -66,7 +67,7 @@ class on_boarding extends StatelessWidget {
           SizedBox(height: 15.0,),
           IconButton(onPressed: (){
           Navigator.push( context, 
-          MaterialPageRoute(builder: (context)=> LoginScreen()),);
+          MaterialPageRoute(builder: (context)=> SignInPage()),);
           },
            icon: Icon(Icons.arrow_forward_rounded,
            size: 60.0,

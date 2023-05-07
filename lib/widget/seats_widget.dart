@@ -19,7 +19,7 @@ void colorChange(){
     return  Container(
           padding: EdgeInsets.all(10),
           margin: EdgeInsets.all(10),
-          width:MediaQuery.of(context).size.width*0.57,
+          width:MediaQuery.of(context).size.width*0.60,
           height: MediaQuery.of(context).size.height * 0.55,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -29,46 +29,49 @@ void colorChange(){
           ),
           child: ListView.builder(
             itemBuilder: (context, index) {
-              return Row(
-                children: [
-                 GestureDetector(
-                    child: Icon(
-                      Icons.chair,
-                      color: Colors.grey,
-                      size: 40,
-                    ),
-                    onTap: colorChange,
-                  ),
-                  SizedBox(width: 5,),
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
                    GestureDetector(
-                    child: Icon(
-                      Icons.chair,
-                      color: Colors.grey,
-                      size: 40,
+                      child: Icon(
+                        Icons.chair,
+                        color: Colors.grey,
+                        size: 40,
+                      ),
+                      onTap: colorChange,
                     ),
-                    onTap: colorChange,
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  GestureDetector(
-                    child: Icon(
-                      Icons.chair,
-                      color: Colors.grey,
-                      size: 40,
+                    SizedBox(width: 5,),
+                     GestureDetector(
+                      child: Icon(
+                        Icons.chair,
+                        color: Colors.grey,
+                        size: 40,
+                      ),
+                      onTap: colorChange,
                     ),
-                    onTap: colorChange,
-                  ),
-                  SizedBox(width: 5,),
-                   GestureDetector(
-                    child: Icon(
-                      Icons.chair,
-                      color: Colors.grey,
-                      size: 40,
+                    SizedBox(
+                      width: 30,
                     ),
-                    onTap: colorChange,
-                  ),
-                ],
+                    GestureDetector(
+                      child: Icon(
+                        Icons.chair,
+                        color: Colors.grey,
+                        size: 40,
+                      ),
+                      onTap: colorChange,
+                    ),
+                    SizedBox(width: 5,),
+                     GestureDetector(
+                      child: Icon(
+                        Icons.chair,
+                        color: Colors.grey,
+                        size: 40,
+                      ),
+                      onTap: colorChange,
+                    ),
+                  ],
+                ),
               );
             },
             itemCount: 9,

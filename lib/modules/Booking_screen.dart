@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +8,12 @@ import 'package:mesafer/cubit/states.dart';
 import 'package:mesafer/models/ticket_details_model.dart';
 import 'package:mesafer/modules/mesafer2.dart';
 
-class booking_screen extends StatelessWidget {
+class booking_screen extends StatefulWidget {
+  @override
+  State<booking_screen> createState() => _booking_screenState();
+}
+
+class _booking_screenState extends State<booking_screen> {
   List<String> places = [
     'Cairo',
     'Alex',
@@ -21,15 +27,52 @@ class booking_screen extends StatelessWidget {
 
   DateTime? departureDate;
 
-  String source = 'select Source', destination = 'select destination';
+  String source = ' Source';
+  String destination = ' destination';
+
   int passengers = 1;
+
   String? aaa;
+
   TicketDetails? ticketDetails ;
+
   void fillTicketData(){
      ticketDetails!.source=source;
      ticketDetails!.destination=destination;
      ticketDetails!.date=departureDate.toString();
   }
+
+   List trips = [];
+
+  getData() async {
+    DocumentReference usersRef = FirebaseFirestore.instance.collection('trips').doc('cairoAlex');
+    var responseBody = await usersRef.get();
+
+    setState(() {
+      trips.add(responseBody.data());
+    });
+  }
+
+  /* --------------------------*/
+  Future<String> getDocumentId(String collectionName) async {
+  try {
+    final CollectionReference collection = FirebaseFirestore.instance.collection(collectionName);
+    final QuerySnapshot querySnapshot = await collection.get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final DocumentSnapshot docSnapshot = querySnapshot.docs.first;
+      final String documentId = docSnapshot.id;
+      return documentId;
+    } else {
+      // return a default value if no documents are found
+      return "default_document_id";
+    }
+  } catch (e) {
+    // handle the exception and return a default value
+    print("Error retrieving document ID: $e");
+    return "default_document_id";
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -187,11 +230,11 @@ class booking_screen extends StatelessWidget {
                                     children: [
                                       SingleChildScrollView(
                                         child: Row(
-                                          // mainAxisAlignment:
-                                          //MainAxisAlignment.spaceBetween,
+                                           mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Text(
-                                              'To',
+                                              ' To',
                                               style: TextStyle(
                                                 fontSize: 25,
                                               ),

@@ -43,8 +43,8 @@ class QRCodePage extends StatelessWidget {
             },
               
               child: Container(
-                width: MediaQuery.of(context).size.width*0.7,
-                height:MediaQuery.of(context).size.width*0.13 ,
+                width: MediaQuery.of(context).size.width*0.8,
+                height:MediaQuery.of(context).size.width*0.14 ,
                 
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),

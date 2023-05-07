@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mesafer/models/user_data_model.dart';
 import 'package:mesafer/pages/payment_page.dart';
@@ -24,6 +25,61 @@ class _PersonalInfoState extends State<PersonalInfo> {
   String? email;
 
   List<String> genderList = ['male' , 'female'];
+
+
+   var _firstNameController = TextEditingController();
+   var  _lastNameController = TextEditingController();
+
+  var _birthDateController = TextEditingController();
+
+  var _nationalIdController = TextEditingController();
+
+  var _phoneNumberController = TextEditingController();
+
+  var _emailController = TextEditingController();
+
+  /*void fillUserData(){
+    UserDataModel.dateOfBirth=_birthDateController.text;
+    UserDataModel.nationalId=_nationalIdController.text;
+    UserDataModel.phoneNumber=_phoneNumberController.text;
+    UserDataModel.gender=gender;
+  }*/
+
+  addData() async{
+    CollectionReference usersRef = FirebaseFirestore.instance.collection('users');
+   // fillUserData();
+   await usersRef.doc('mGHhcsybTwTgYTTingreLYVUCUC2').update({
+      'first_name':_firstNameController.text,
+      'last_name':_lastNameController.text,
+      'email':_emailController.text,
+      'dateOfBirth':_birthDateController.text,
+       'gender':gender,
+       'nationalId': _nationalIdController.text,
+       'phoneNumber':_phoneNumberController.text,
+    });
+  }
+  Future<String> getDocumentId(String collectionName) async {
+  try {
+    final CollectionReference collection = FirebaseFirestore.instance.collection(collectionName);
+    final QuerySnapshot querySnapshot = await collection.get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final DocumentSnapshot docSnapshot = querySnapshot.docs.first;
+      final String documentId = docSnapshot.id;
+      return documentId;
+    } else {
+      // return a default value if no documents are found
+      return "default_document_id";
+    }
+  } catch (e) {
+    // handle the exception and return a default value
+    print("Error retrieving document ID: $e");
+    return "default_document_id";
+  }
+}
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +165,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     defaultFormField2(
                       type: TextInputType.name,
-                      onchange: (p0) => firstName,
+                      controller: _firstNameController,
                     ),
                     SizedBox(
                       height: 5,
@@ -121,7 +177,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     defaultFormField2(
                       type: TextInputType.name,
-                      onchange: (p0) => lastName,
+                      controller: _lastNameController,
                     ),
                     SizedBox(
                       height: 5,
@@ -133,7 +189,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     defaultFormField2(
                       type: TextInputType.datetime,
-                      onchange: (p0) => birthDate,
+                      controller: _birthDateController,
                     ),
                     SizedBox(
                       height: 5,
@@ -201,7 +257,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     defaultFormField2(
                       type: TextInputType.number,
-                      onchange: (p0) => nationalId,
+                     controller: _nationalIdController
                     ),
                     SizedBox(
                       height: 5,
@@ -213,7 +269,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     defaultFormField2(
                       type: TextInputType.phone,
-                      onchange: (p0) => phoneNumber,
+                      controller: _phoneNumberController,
                     ),
                     SizedBox(
                       height: 5,
@@ -225,7 +281,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     defaultFormField2(
                       type: TextInputType.emailAddress,
-                      onchange: (p0) => email,
+                      controller: _emailController,
                     ),
                   ],
                 ),
@@ -237,9 +293,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 ],
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   //Book function
-
+                await  addData();
+                
                   Navigator.push(
                       context,
                       MaterialPageRoute(

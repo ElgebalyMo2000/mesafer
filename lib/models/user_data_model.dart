@@ -7,6 +7,7 @@ class UserDataModel {
   String? phoneNumber;
   String? email;
   String? password;
+   String? userId;
   
 
   UserDataModel(
@@ -17,5 +18,6 @@ class UserDataModel {
       required this.nationalId,
       required this.phoneNumber,
       required this.email,
+       this.userId,
       this.password,});
 }
