@@ -48,7 +48,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   addData() async{
     CollectionReference usersRef = FirebaseFirestore.instance.collection('users');
    // fillUserData();
-   await usersRef.doc('mGHhcsybTwTgYTTingreLYVUCUC2').update({
+   await usersRef.doc(UserDataModel.userId).update({
       'first_name':_firstNameController.text,
       'last_name':_lastNameController.text,
       'email':_emailController.text,
@@ -58,27 +58,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
        'phoneNumber':_phoneNumberController.text,
     });
   }
-  Future<String> getDocumentId(String collectionName) async {
-  try {
-    final CollectionReference collection = FirebaseFirestore.instance.collection(collectionName);
-    final QuerySnapshot querySnapshot = await collection.get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      final DocumentSnapshot docSnapshot = querySnapshot.docs.first;
-      final String documentId = docSnapshot.id;
-      return documentId;
-    } else {
-      // return a default value if no documents are found
-      return "default_document_id";
-    }
-  } catch (e) {
-    // handle the exception and return a default value
-    print("Error retrieving document ID: $e");
-    return "default_document_id";
-  }
-}
-
-
   
 
   @override
@@ -199,11 +178,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                   /* defaultFormField2(
-                      type: TextInputType.name,
-                      onchange: (p0) => gender,
-                    ),*/
-                    //tttttttttttttt
+                  
                    PopupMenuButton(
                      initialValue: gender,
                        shape: RoundedRectangleBorder(

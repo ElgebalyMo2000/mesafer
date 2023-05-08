@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mesafer/models/user_data_model.dart';
 import 'package:mesafer/pages/register_page.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -243,6 +244,10 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> loginUser() async {
     UserCredential user = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email!, password: password!);
+        print('/********************************************/');
+        print(user.user!.uid);
+        UserDataModel.userId = user.user!.uid;
+        
   }
 }
 

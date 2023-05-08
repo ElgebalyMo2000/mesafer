@@ -32,7 +32,7 @@ class BookingPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height:  MediaQuery.of(context).size.height*.7,
+                height:  MediaQuery.of(context).size.height*.8,
                 padding: EdgeInsets.all(10),
                 margin: EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
@@ -132,6 +132,7 @@ class BookingPage extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width*0.7,
                     height:MediaQuery.of(context).size.width*0.13 ,
+                    margin: EdgeInsets.only(bottom: 20),
                     
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),

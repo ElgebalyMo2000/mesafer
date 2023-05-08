@@ -17,7 +17,7 @@ class _booking_screenState extends State<booking_screen> {
   List<String> places = [
     'Cairo',
     'Alex',
-    'Sharqia',
+    'Zagazig',
     'Geza',
     'Mansora',
     'Aswan',
@@ -27,61 +27,65 @@ class _booking_screenState extends State<booking_screen> {
 
   DateTime? departureDate;
 
-  String source = ' Source';
-  String destination = ' destination';
+  String source = ' source';
+  String destination = 'destination';
 
   int passengers = 1;
 
-  String? aaa;
+  String? tripId;
 
   TicketDetails? ticketDetails ;
 
-  void fillTicketData(){
+ /* void fillTicketData(){
      ticketDetails!.source=source;
      ticketDetails!.destination=destination;
      ticketDetails!.date=departureDate.toString();
+  }*/
+  /*Future<void> _createtripCollection(String uid) async {
+   
+    
+    
+    await FirebaseFirestore.instance.collection('trips').doc(uid).set({
+       
+       'id':uid,
+    });
+    
+  }*/
+  /********************************** */
+  
+  getData()async{
+    CollectionReference tripRef =FirebaseFirestore.instance.collection('trips');
+    await tripRef.where('source',isEqualTo: source).where('destination',isEqualTo: destination).get().then((value) {
+      value.docs.forEach((element) {
+        
+        tripId=element.id;
+        print(tripId);
+      });
+    });
   }
 
-   List trips = [];
+  
+  printData() async{
+  
+  }
 
-  getData() async {
+   
+
+  /*getData() async {
     DocumentReference usersRef = FirebaseFirestore.instance.collection('trips').doc('cairoAlex');
     var responseBody = await usersRef.get();
 
     setState(() {
       trips.add(responseBody.data());
     });
-  }
+  }*/
 
   /* --------------------------*/
-  Future<String> getDocumentId(String collectionName) async {
-  try {
-    final CollectionReference collection = FirebaseFirestore.instance.collection(collectionName);
-    final QuerySnapshot querySnapshot = await collection.get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      final DocumentSnapshot docSnapshot = querySnapshot.docs.first;
-      final String documentId = docSnapshot.id;
-      return documentId;
-    } else {
-      // return a default value if no documents are found
-      return "default_document_id";
-    }
-  } catch (e) {
-    // handle the exception and return a default value
-    print("Error retrieving document ID: $e");
-    return "default_document_id";
-  }
-}
+ 
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit(),
-      child: BlocConsumer<AppCubit, AppStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = AppCubit.get(context);
+    
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -462,7 +466,18 @@ class _booking_screenState extends State<booking_screen> {
                         horizontal: MediaQuery.of(context).size.width * 0.2,
                         vertical: 30),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
+                        
+                           await getData();
+                           
+                       
+                        
+                       // fillTicketData();
+                       
+                      
+                      
+                        
+                        
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
                             return ChooseTicket(ticket: {
@@ -470,6 +485,7 @@ class _booking_screenState extends State<booking_screen> {
                               'source': source,
                               'destination': destination,
                               'departureDate': departureDate,
+                              'docId':tripId,
                             });
                           },
                         ));
@@ -492,8 +508,8 @@ class _booking_screenState extends State<booking_screen> {
               ),
             ),
           );
-        },
-      ),
-    );
+        }
+      
+    
   }
-}
+

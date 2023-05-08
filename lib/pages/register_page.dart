@@ -37,10 +37,10 @@ class _SignupPageState extends State<SignupPage> {
    // create Cllection Function
   Future<void> _createUserCollection(String uid) async {
    // filluserdata();
-   // UserDataModel.userId = uid;
+    
     
     await FirebaseFirestore.instance.collection('users').doc(uid).set({
-     'first_name' :firstNameController.text,
+       'first_name' :firstNameController.text,
        'last_name':lastnameController.text,
        'emai':emailController.text,
        'password':createpassordController.text,
@@ -48,8 +48,9 @@ class _SignupPageState extends State<SignupPage> {
        'gender':'',
        'nationalId':'',
        'phoneNumber':'',
-       'id' :uid,
+       'id':uid,
     });
+    UserDataModel.userId = uid;
   }
   
   Future<void> _signUp() async {

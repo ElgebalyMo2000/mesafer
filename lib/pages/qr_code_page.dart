@@ -38,8 +38,7 @@ class QRCodePage extends StatelessWidget {
                 Center(
             child: GestureDetector(
               onTap: () {
-                 Navigator.push( context, 
-            MaterialPageRoute(builder: (context)=> mesafer_layout()),);
+                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => mesafer_layout(),), (route) => false);
             },
               
               child: Container(

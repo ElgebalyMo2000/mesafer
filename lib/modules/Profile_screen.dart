@@ -11,9 +11,22 @@ class profile_screen extends StatefulWidget {
 }
 
 class _profile_screenState extends State<profile_screen> {
+  var _firstNameController = TextEditingController();
+   var  _lastNameController = TextEditingController();
+
+  var _birthDateController = TextEditingController();
+
+  var _nationalIdController = TextEditingController();
+
+  var _phoneNumberController = TextEditingController();
+
+  var _emailController = TextEditingController();
+  var _passwordController = TextEditingController();
+  bool enable = false;
   List users = [];
+
   getData() async {
-    DocumentReference usersRef = FirebaseFirestore.instance.collection('users').doc('U0snplzSc2NMiN5bhDgorBglElk2');
+    DocumentReference usersRef = FirebaseFirestore.instance.collection('users').doc(UserDataModel.userId);
     var responseBody = await usersRef.get();
 
     setState(() {
@@ -22,39 +35,7 @@ class _profile_screenState extends State<profile_screen> {
   }
   
 
-  /* --------------------------
-  Future<String> getDocumentId(String collectionName) async {
-  try {
-    final CollectionReference collection = FirebaseFirestore.instance.collection(collectionName);
-    final QuerySnapshot querySnapshot = await collection.get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      final DocumentSnapshot docSnapshot = querySnapshot.docs.first;
-      final String documentId = docSnapshot.id;
-      return documentId;
-    } else {
-      // return a default value if no documents are found
-      return "default_document_id";
-    }
-  } catch (e) {
-    // handle the exception and return a default value
-    print("Error retrieving document ID: $e");
-    return "default_document_id";
-  }
-}
-*/
-
-  /*
-  Future<void> fetchUserDataFromFirestore(String userId) async {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  DocumentReference userRef = firestore.collection('users').doc(userId);
-  DocumentSnapshot snapshot = await userRef.get();
-  if (snapshot.exists) {
-    print(snapshot.data());
-  } else {
-    print('Document does not exist');
-  }
-}*/
+  
   @override
   void initState() {
     // TODO: implement initState
@@ -109,8 +90,8 @@ class _profile_screenState extends State<profile_screen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 defaultFormField2(
-                  enable: false,
-                  controller:
+                  enable: enable,
+                  controller:enable==true?_firstNameController:
                       TextEditingController(text: users[0]['first_name']),
                 ),
                 SizedBox(
@@ -121,8 +102,8 @@ class _profile_screenState extends State<profile_screen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 defaultFormField2(
-                  enable: false,
-                  controller:
+                  enable: enable,
+                  controller:enable==true?_lastNameController:
                       TextEditingController(text: users[0]['last_name']),
                 ),
                 SizedBox(
@@ -133,8 +114,8 @@ class _profile_screenState extends State<profile_screen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 defaultFormField2(
-                  enable: false,
-                  controller:
+                  enable: enable,
+                  controller:enable==true?_birthDateController:
                       TextEditingController(text: users[0]['dateOfBirth']),
                 ),
                 SizedBox(
@@ -156,8 +137,8 @@ class _profile_screenState extends State<profile_screen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 defaultFormField2(
-                  enable: false,
-                  controller:
+                  enable: enable,
+                  controller:enable==true?_nationalIdController:
                       TextEditingController(text: users[0]['nationalId']),
                 ),
                 SizedBox(
@@ -168,8 +149,8 @@ class _profile_screenState extends State<profile_screen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 defaultFormField2(
-                  enable: false,
-                  controller:
+                  enable: enable,
+                  controller:enable==true?_phoneNumberController:
                       TextEditingController(text: users[0]['phoneNumber']),
                 ),
                 SizedBox(
@@ -180,8 +161,9 @@ class _profile_screenState extends State<profile_screen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 defaultFormField2(
-                  enable: false,
-                    controller: TextEditingController(text: users[0]['emai'])),
+                  enable: enable,
+                    controller: enable==true?_emailController:
+                    TextEditingController(text: users[0]['emai'])),
                 SizedBox(
                   height: 5,
                 ),
@@ -190,8 +172,9 @@ class _profile_screenState extends State<profile_screen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 defaultFormField2(
-                  enable: false,
-                  controller: TextEditingController(text: users[0]['password']),
+                  enable: enable,
+                  controller: enable==true?_passwordController:
+                  TextEditingController(text: users[0]['password']),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
@@ -199,7 +182,12 @@ class _profile_screenState extends State<profile_screen> {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      // Pay Function
+                      setState(() {
+                        enable =! enable;
+                        if(enable ==true){
+                         // updateData();
+                        }
+                      });
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.4,
@@ -210,7 +198,7 @@ class _profile_screenState extends State<profile_screen> {
                       ),
                       child: Center(
                         child: Text(
-                          'UPDATE INFO',
+                       enable==false?'UPDATE INFO':'SAVE INFO',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -224,5 +212,19 @@ class _profile_screenState extends State<profile_screen> {
             ),
           ),
         ));
+
+  }
+   updateData() async{
+    CollectionReference usersRef = FirebaseFirestore.instance.collection('users');
+   // fillUserData();
+   await usersRef.doc(UserDataModel.userId).update({
+      'first_name':_firstNameController.text,
+      'last_name':_lastNameController.text,
+      'email':_emailController.text,
+      'dateOfBirth':_birthDateController.text,
+       'password':_passwordController,
+       'nationalId': _nationalIdController.text,
+       'phoneNumber':_phoneNumberController.text,
+    });
   }
 }
