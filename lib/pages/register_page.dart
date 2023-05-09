@@ -101,10 +101,11 @@ class _SignupPageState extends State<SignupPage> {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: ListView(
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
+             // mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: MediaQuery.of(context).size.height*.05,),
                 Center(
                   child: Text(
                     'Sign UP',

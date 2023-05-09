@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mesafer/models/user_data_model.dart';
@@ -37,11 +38,13 @@ class _SignInPageState extends State<SignInPage> {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
+              //child: ListView(
+               // children: [
+                child:ListView(
+                  //crossAxisAlignment: CrossAxisAlignment.stretch,
+                  //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(height: MediaQuery.of(context).size.height*.2,),
                     Container(
                       alignment: Alignment.center,
                       child: ClipRRect(
@@ -168,7 +171,7 @@ class _SignInPageState extends State<SignInPage> {
                                   print(ex);
                                   showSnackBar(context, 'there was an error');
                                 }
-
+              
                                 isLoading = false;
                                 setState(() {});
                               } else {}
@@ -215,6 +218,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         TextButton(
                           onPressed: () {
+                            addDocument();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -233,12 +237,14 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ],
                 ),
+            ),
+            
               ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+    //  ),
+ //   );
   }
 
   Future<void> loginUser() async {
@@ -249,7 +255,38 @@ class _SignInPageState extends State<SignInPage> {
         UserDataModel.userId = user.user!.uid;
         
   }
+  CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
+  Future<void> addDocument()async{
+    String? source = 'Cairo';
+    String? destination = 'Alex';
+    String? date = '8/5/2023';
+    List<String>? arival_time=['2:00 BN','5:00 BM'];
+    List<String>? start_time = ['10:00 AM','2:00 BM'];
+    List<String>? duration=['4 h','3 h'];
+    List<int>? price;
+    List<String>? train_number=['132','133'];
+    List<bool> seats = List.filled(32, true);
+
+    final data={
+      'source':source,
+      'destination':destination,
+      'date':date,
+      'arival_time':arival_time,
+      'start_time':start_time,
+      'duration':duration,
+      'price':price,
+      'train_number':train_number,
+      'seats':seats,
+
+    };
+    for (int i = 0; i < 10; i++) {
+      print(data);
+    await tripRef.add(data);
+  }
+  }
+
 }
+
 
 void showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mesafer/models/ticket_details_model.dart';
 import 'package:mesafer/pages/personal_info_page.dart';
+import 'package:rxdart/rxdart.dart';
 
 
 import '../models/user_data_model.dart';
@@ -20,21 +23,25 @@ class ChooseTicket extends StatefulWidget {
 }
 
 class _ChooseTicketState extends State<ChooseTicket> {
+  listenData()async{
+    FirebaseFirestore.instance.collection('trips').snapshots().listen((event) {
+        event.docs.forEach((element) {
+         
+        });
+     });
+  }
+  //late StreamController<List> _seatsStreamController;
  List trip = [];
- /* getData() async {
-    DocumentReference usersRef = FirebaseFirestore.instance.collection('trips').doc('${widget.ticket['docId']}');
-    var responseBody = await usersRef.get();
-
-    setState(() {
-      trip.add(responseBody.data());
-    });
-    print(trip);
-  }*/
+  //late Stream<List> tripStream;
+ 
   @override
   void initState() {
     // TODO: implement initState
       
      trip =  widget.ticket['trip'];
+     //_seatsStreamController = BehaviorSubject<List>.seeded(trip[0]['seats']);
+     listenData();
+    
      setState(() {
         print(trip);
      print('==========================================================');
