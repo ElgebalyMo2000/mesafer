@@ -124,14 +124,14 @@ class _ChooseTicketState extends State<ChooseTicket> {
               ),
             ),
             ticketWidget(TicketDetails(
-              date: '${trip[0]['start time'][0]} ==> ${trip[0]['arival_time'][0]}',
+              date: '${trip[0]['start_time'][0]} ==> ${trip[0]['arival_time'][0]}',
               duration: '${trip[0]['duration'][0]}',
               business: '${trip[0]['price'][0]}',
               economy: '${trip[0]['price'][1]}',
               trainNumber: '${trip[0]['train_number'][0]}',
             )),
             ticketWidget(TicketDetails(
-              date: '${trip[0]['start time'][1]} ==> ${trip[0]['arival_time'][1]}',
+              date: '${trip[0]['start_time'][1]} ==> ${trip[0]['arival_time'][1]}',
               duration: '${trip[0]['duration'][1]}',
               business: '${trip[0]['price'][0]}',
               economy:'${trip[0]['price'][1]}',
