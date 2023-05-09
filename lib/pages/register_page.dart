@@ -83,36 +83,7 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
-  CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
-  Future<void> addDocument()async{
-    String? source = 'Cairo';
-    String? destination = 'Alex';
-    String? date = '8/5/2023';
-    List<String>? arival_time=['2:00 BN','5:00 BM'];
-    List<String>? start_time = ['10:00 AM','2:00 BM'];
-    List<String>? duration=['4 h','3 h'];
-    List<int>? price = [20,70];
-    List<String>? train_number=['132','133'];
-    List<bool> seats = List.filled(32, true);
-
-    final data={
-      'source':source,
-      'destination':destination,
-      'date':date,
-      'arival_time':arival_time,
-      'start_time':start_time,
-      'duration':duration,
-      'price':price,
-      'train_number':train_number,
-      'seats':seats,
-
-    };
-    for (int i = 0; i < 10; i++) {
-      print(data);
-    await tripRef.add(data);
-  }
-  }
-
+  
   
 
   @override
@@ -277,7 +248,7 @@ class _SignupPageState extends State<SignupPage> {
                           if (formKey.currentState!.validate()) {
                             isLoading = true;
                             setState(() {});
-                          //  await addDocument();
+                         
 
                           await _signUp();
                           
