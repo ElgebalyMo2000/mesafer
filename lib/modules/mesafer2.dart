@@ -23,6 +23,7 @@ class ChooseTicket extends StatefulWidget {
 }
 
 class _ChooseTicketState extends State<ChooseTicket> {
+  
   listenData()async{
     FirebaseFirestore.instance.collection('trips').snapshots().listen((event) {
         event.docs.forEach((element) {
@@ -178,7 +179,8 @@ class _ChooseTicketState extends State<ChooseTicket> {
                 ],
                ),
                SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-              SeatsWidget2(trip[0]['seats']!),
+               
+             SeatsWidget2(trip[0]['seats']!),
              ],
            ),
 

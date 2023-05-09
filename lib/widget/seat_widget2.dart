@@ -12,7 +12,7 @@ Widget SeatsWidget2(List<dynamic>seatStateAvalible) {
       index: ++index,
       isAvailable: seatStateAvalible[--index],
       isSelected: isSelected,
-      color: Colors.grey,
+      color:seatStateAvalible[index++]?Colors.grey:Colors.red,
     ),
     
   );
