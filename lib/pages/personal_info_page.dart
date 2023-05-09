@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mesafer/models/user_data_model.dart';
+import 'package:mesafer/pages/booking_page.dart';
 import 'package:mesafer/pages/payment_page.dart';
 import 'package:mesafer/shared/components/components.dart';
 
@@ -281,7 +282,16 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PaymentPage(),
+                        builder: (context) => PaymentPage(ticket: {
+                           'passengers': '${widget.ticket['passengers']}',
+                              'source': '${widget.ticket['source']}',
+                              'destination': '${widget.ticket['destination']}',
+                              'departureDate': '${widget.ticket['departureDate']}',
+                              'docId':'${widget.ticket['docId']}',
+                               'trainNumber':'${widget.ticket['trainNumber']}',
+                               'price':'${widget.ticket['price']}',
+                               'startDate':'${widget.ticket['startDate']}',
+                        }),
                       ));
                 },
                 child: Container(

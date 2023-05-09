@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mesafer/pages/booking_page.dart';
+import 'package:mesafer/pages/qr_code_page.dart';
 
 
-class PaymentPage extends StatelessWidget {
-   PaymentPage({super.key});
+class PaymentPage extends StatefulWidget {
+  Map<String,dynamic> ticket;
+   PaymentPage({super.key,required this.ticket});
+
+  @override
+  State<PaymentPage> createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
   bool rv = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +115,7 @@ class PaymentPage extends StatelessWidget {
                 
                 child: Row(
                   children: [
-                    Text('Total Price:      10 EGP',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: Colors.white),),
+                    Text('Total Price:      ${widget.ticket['price']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: Colors.white),),
                   ],
                 ),
               ),
@@ -114,7 +123,16 @@ class PaymentPage extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => BookingPage(),));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => BookingPage(ticket: {
+                       'passengers': '${widget.ticket['passengers']}',
+                              'source': '${widget.ticket['source']}',
+                              'destination': '${widget.ticket['destination']}',
+                              'departureDate': '${widget.ticket['departureDate']}',
+                              'docId':'${widget.ticket['docId']}',
+                               'trainNumber':'${widget.ticket['trainNumber']}',
+                               'price':'${widget.ticket['price']}',
+                               'startDate':'${widget.ticket['startDate']}',
+                    }),));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width*0.7,

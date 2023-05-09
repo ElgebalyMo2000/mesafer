@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mesafer/pages/qr_code_page.dart';
 
-class BookingPage extends StatelessWidget {
-  const BookingPage({super.key});
+class BookingPage extends StatefulWidget {
+   BookingPage({super.key,required this.ticket});
+  Map<String,dynamic> ticket;
 
+  @override
+  State<BookingPage> createState() => _BookingPageState();
+}
+
+class _BookingPageState extends State<BookingPage> {
+ 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -61,21 +68,21 @@ class BookingPage extends StatelessWidget {
                     Row(
                         children: [
                           Icon(Icons.train,color:Color.fromARGB(255, 242, 168, 81)),
-                          Text('Zagazig',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black45),),
+                          Text('${widget.ticket['source']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black45),),
                           Icon(Icons.arrow_right_alt,size: 30,color:Color.fromARGB(255, 242, 168, 81) ,),
-                          Text('Cairo',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black45),),
+                          Text('${widget.ticket['destination']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black45),),
                         ],
                       ),
                       SizedBox(height: 10,),
                     Text('Departure Date:',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23,color: Colors.black45),),
-                    Center(child: Text('20/8/2000     7:30',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black),)),
+                    Center(child: Text('${widget.ticket['departureDate']}     ${widget.ticket['startDate']}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black),)),
                     SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.train_outlined,color:Color.fromARGB(255, 242, 168, 81)),
                         Text('Train : ',style:TextStyle (fontSize: 20,fontWeight:FontWeight.bold, color: Colors.black)),
-                        Text('  0551',style:TextStyle (fontSize: 20,fontWeight:FontWeight.bold, color: Colors.black)),
+                        Text('${widget.ticket['trainNumber']}',style:TextStyle (fontSize: 20,fontWeight:FontWeight.bold, color: Colors.black)),
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -83,7 +90,7 @@ class BookingPage extends StatelessWidget {
                        mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('Class : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color: Colors.black45),),
-                        Text('Economy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black),),
+                        Text('Business',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.black),),
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -92,14 +99,14 @@ class BookingPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('Coach : 01 -  ',style: TextStyle(fontSize: 23),),
-                        Text('Seat: 007',style: TextStyle(fontSize: 23),),
+                        Text('Seat: 9',style: TextStyle(fontSize: 23),),
                       ],
                     ),
                     SizedBox(height: 10,),
                     Row(
                       children: [
                         Text('Price per Person:   ',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,color:Color.fromARGB(255, 242, 168, 81) )),
-                        Text('10 EGP',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold)),
+                        Text('${widget.ticket['price']}',style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -114,7 +121,7 @@ class BookingPage extends StatelessWidget {
                                 color: Colors.green,
                               ),
                               
-                              child: Center(child: Text('10 EGP',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white)))),
+                              child: Center(child: Text('${widget.ticket['price']}',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white)))),
                           ),
                         ],
                       ),

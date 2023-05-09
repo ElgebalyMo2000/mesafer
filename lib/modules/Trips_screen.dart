@@ -105,7 +105,7 @@ class trips_screen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 
                 children: [
-                  Text('01/01/2022',style: TextStyle(color: Colors.black87,fontSize: 18),),
+                  Text('10/5/2023',style: TextStyle(color: Colors.black87,fontSize: 18),),
                   
 
                  Row(

@@ -28,6 +28,7 @@ class _booking_screenState extends State<booking_screen> {
   ];
 
   DateTime? departureDate;
+  
 
   String source = ' source';
   String destination = 'destination';
@@ -480,9 +481,10 @@ void dispose() {
                         'passengers': passengers.toString(),
                         'source': source,
                         'destination': destination,
-                        'departureDate': departureDate,
+                        'departureDate':'${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
                         'docId': tripId,
                         'trip': TripInfo,
+                        
                       });
                     },
                   ));

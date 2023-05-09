@@ -32,6 +32,7 @@ class _ChooseTicketState extends State<ChooseTicket> {
   }
   //late StreamController<List> _seatsStreamController;
  List trip = [];
+ int? index;
   //late Stream<List> tripStream;
  
   @override
@@ -126,15 +127,15 @@ class _ChooseTicketState extends State<ChooseTicket> {
             ticketWidget(TicketDetails(
               date: '${trip[0]['start_time'][0]} ==> ${trip[0]['arival_time'][0]}',
               duration: '${trip[0]['duration'][0]}',
-              business: '${trip[0]['price'][0]}',
-              economy: '${trip[0]['price'][1]}',
+              business: '${trip[0]['price'][1]}',
+              economy: '${trip[0]['price'][0]}',
               trainNumber: '${trip[0]['train_number'][0]}',
             )),
             ticketWidget(TicketDetails(
               date: '${trip[0]['start_time'][1]} ==> ${trip[0]['arival_time'][1]}',
               duration: '${trip[0]['duration'][1]}',
-              business: '${trip[0]['price'][0]}',
-              economy:'${trip[0]['price'][1]}',
+              business: '${trip[0]['price'][1]}',
+              economy:'${trip[0]['price'][0]}',
               trainNumber: '${trip[0]['train_number'][1]}',
             )),
            
@@ -177,7 +178,7 @@ class _ChooseTicketState extends State<ChooseTicket> {
                 ],
                ),
                SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-              SeatsWidget2(trip[0]['seats']),
+              SeatsWidget2(trip[0]['seats']!),
              ],
            ),
 
@@ -191,6 +192,9 @@ class _ChooseTicketState extends State<ChooseTicket> {
                               'destination': '${widget.ticket['destination']}',
                               'departureDate': '${widget.ticket['departureDate']}',
                               'docId':'${widget.ticket['docId']}',
+                              'trainNumber':'${trip[0]['train_number'][1]}',
+                              'price' : '${trip[0]['price'][1]}',
+                              'startDate':'${trip[0]['start_time'][0]}',
                               
                             });
                           },

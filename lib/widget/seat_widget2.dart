@@ -14,6 +14,7 @@ Widget SeatsWidget2(List<dynamic>seatStateAvalible) {
       isSelected: isSelected,
       color: Colors.grey,
     ),
+    
   );
 
   void colorChange(int seatIndex) {
