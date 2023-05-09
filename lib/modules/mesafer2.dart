@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mesafer/models/ticket_details_model.dart';
 import 'package:mesafer/pages/personal_info_page.dart';
-import 'package:mesafer/widget/seats_widget.dart';
+
 
 import '../models/user_data_model.dart';
+import '../widget/seat_widget2.dart';
 import '../widget/ticket_widget.dart';
 
 
@@ -20,7 +21,7 @@ class ChooseTicket extends StatefulWidget {
 
 class _ChooseTicketState extends State<ChooseTicket> {
  List trip = [];
-  getData() async {
+ /* getData() async {
     DocumentReference usersRef = FirebaseFirestore.instance.collection('trips').doc('${widget.ticket['docId']}');
     var responseBody = await usersRef.get();
 
@@ -28,14 +29,20 @@ class _ChooseTicketState extends State<ChooseTicket> {
       trip.add(responseBody.data());
     });
     print(trip);
-  }
+  }*/
   @override
   void initState() {
     // TODO: implement initState
-     setState(() async{
-       await getData();
+      
+     trip =  widget.ticket['trip'];
+     setState(() {
+        print(trip);
+     print('==========================================================');
+     print(trip[0]['seats']);
      });
+    
     super.initState();
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -163,13 +170,24 @@ class _ChooseTicketState extends State<ChooseTicket> {
                 ],
                ),
                SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-              SeatsWidget(),
+              SeatsWidget2(trip[0]['seats']),
              ],
            ),
 
             GestureDetector(
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => PersonalInfo(),));
+                Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return PersonalInfo(ticket: {
+                              'passengers': '${widget.ticket['passengers']}',
+                              'source': '${widget.ticket['source']}',
+                              'destination': '${widget.ticket['destination']}',
+                              'departureDate': '${widget.ticket['departureDate']}',
+                              'docId':'${widget.ticket['docId']}',
+                              
+                            });
+                          },
+                        ));
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 30),

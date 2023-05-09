@@ -6,6 +6,7 @@ class TicketDetails{
   String? duration;
   String? source;
   String? destination;
+static String? tripId;
 
   TicketDetails(
       {this.date,

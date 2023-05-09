@@ -5,6 +5,11 @@ import 'package:mesafer/pages/payment_page.dart';
 import 'package:mesafer/shared/components/components.dart';
 
 class PersonalInfo extends StatefulWidget {
+
+
+  Map<String,dynamic> ticket;
+
+  PersonalInfo({super.key,required this.ticket});
   @override
   State<PersonalInfo> createState() => _PersonalInfoState();
 }
@@ -25,6 +30,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   String? email;
 
   List<String> genderList = ['male' , 'female'];
+  //Map<String,dynamic> ticket = widget.ticket;
 
 
    var _firstNameController = TextEditingController();

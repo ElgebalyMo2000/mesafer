@@ -5,7 +5,7 @@ import 'package:mesafer/pages/register_page.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../layout/mesafer_layout.dart';
-import '../modules/sign_up.dart';
+
 import '../shared/components/components.dart';
 
 class SignInPage extends StatefulWidget {
