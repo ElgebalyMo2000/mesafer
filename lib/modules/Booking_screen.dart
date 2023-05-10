@@ -20,7 +20,6 @@ class _booking_screenState extends State<booking_screen> {
     'Cairo',
     'Alex',
     'Zagazig',
-    'Geza',
     'Mansora',
     'Aswan',
     'Menia',
@@ -105,14 +104,14 @@ void dispose() {
 
 CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
   Future<void> addDocument()async{
-    String? source = 'Cairo';
-    String? destination = 'Alex';
-    String? date = '8/5/2023';
-    List<String>? arival_time=['2:00 BN','5:00 BM'];
-    List<String>? start_time = ['10:00 AM','2:00 BM'];
-    List<String>? duration=['4 h','3 h'];
-    List<int>? price = [20,70];
-    List<String>? train_number=['132','133'];
+    String? source = 'Zagazig';
+    String? destination = 'Cairo';
+    String? date = '12/5/2023';
+    List<String>? arival_time=['11:00:00 BM','6:00 BM'];
+    List<String>? start_time = ['9:00:00 AM','4:00 BM'];
+    List<String>? duration=['2 h','2 h'];
+    List<int>? price = [5,40];
+    List<String>? train_number=['191','192'];
     List<bool> seats = List.filled(32, true);
 
     final data={
@@ -127,10 +126,10 @@ CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
       'seats':seats,
 
     };
-    for (int i = 0; i < 10; i++) {
+    
       print(data);
     await tripRef.add(data);
-  }
+  
   }
 
 
@@ -506,11 +505,11 @@ CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
                 onPressed: () async {
                   await getData();
                   await getDataInfo();
-                  await addDocument();
+                //  await addDocument();
 
                  
 
-                /*  Navigator.push(context, MaterialPageRoute(
+                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
                       return ChooseTicket(ticket: {
                         'passengers': passengers.toString(),
@@ -522,7 +521,7 @@ CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
                         
                       });
                     },
-                  ));*/
+                  ));
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(

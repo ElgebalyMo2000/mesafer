@@ -58,7 +58,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
    await usersRef.doc(UserDataModel.userId).update({
       'first_name':_firstNameController.text,
       'last_name':_lastNameController.text,
-      'email':_emailController.text,
+      'emai':_emailController.text,
       'dateOfBirth':_birthDateController.text,
        'gender':gender,
        'nationalId': _nationalIdController.text,
