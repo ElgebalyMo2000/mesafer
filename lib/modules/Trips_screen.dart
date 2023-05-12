@@ -1,8 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:mesafer/models/ticket_details_model.dart';
+import 'package:mesafer/models/trip_model.dart';
 
 
-class trips_screen extends StatelessWidget {
+class trips_screen extends StatefulWidget {
+
+  @override
+  State<trips_screen> createState() => _trips_screenState();
+}
+
+class _trips_screenState extends State<trips_screen> {
   
+  
+   String? date ='';
+  String? business = '';
+  String? economy = '';
+  String? trainNumber = '';
+  String? duration = '';
+  String? source = '';
+  String? destination  = '';
+  String? startTime  = '';
+
+
+  fillTicket(){
+    date = TripModel.date;
+    business = TripModel.business;
+    trainNumber = TripModel.trainNumber;
+    duration=TripModel.duration;
+    source = TripModel.source;
+    destination = TripModel.destination;
+    startTime = TripModel.startTime;
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    fillTicket();
+        print('/**************************/');
+
+    print(TripModel.startTime);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +118,7 @@ class trips_screen extends StatelessWidget {
                 children: [
                   Icon(Icons.train, color: Color.fromARGB(255, 242, 168, 81),size: 30,),
                   Text(
-                    'Zagazig',
+                    source==null?'source':source!,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
@@ -92,7 +130,7 @@ class trips_screen extends StatelessWidget {
                     color: Color.fromARGB(255, 242, 168, 81),
                   ),
                   Text(
-                    'Cairo',
+                    destination==null?'destination':destination!,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
@@ -105,7 +143,13 @@ class trips_screen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 
                 children: [
-                  Text('10/5/2023',style: TextStyle(color: Colors.black87,fontSize: 18),),
+                  Text(date==null?'17/5/2023':date!,
+                  style: TextStyle(color: Colors.black87,fontSize: 18),),
+
+                  Text(startTime==null?'12:10':startTime!,
+                  style: TextStyle(color: Colors.black87,fontSize: 18),),
+
+                 
                   
 
                  Row(

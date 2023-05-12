@@ -100,7 +100,7 @@ void dispose() {
 }
 
 
-
+// enter new trips in firebase
 
 CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
   Future<void> addDocument()async{

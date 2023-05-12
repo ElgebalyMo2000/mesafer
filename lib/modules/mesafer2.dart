@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mesafer/models/ticket_details_model.dart';
+import 'package:mesafer/models/trip_model.dart';
 import 'package:mesafer/pages/personal_info_page.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -31,17 +32,15 @@ class _ChooseTicketState extends State<ChooseTicket> {
         });
      });
   }
-  //late StreamController<List> _seatsStreamController;
  List trip = [];
  int? index;
-  //late Stream<List> tripStream;
  
   @override
   void initState() {
     // TODO: implement initState
       
      trip =  widget.ticket['trip'];
-     //_seatsStreamController = BehaviorSubject<List>.seeded(trip[0]['seats']);
+     
      listenData();
     
      setState(() {
@@ -52,6 +51,21 @@ class _ChooseTicketState extends State<ChooseTicket> {
     
     super.initState();
     
+  }
+
+  late TicketDetails ticketDetails;
+
+ /* fillTicketData(){
+    ticketDetails = TicketDetails(business:'Business' ,date: '${trip[0]['start_time'][0]}',destination:'${widget.ticket['destination']}' ,source:'${widget.ticket['source']}' ,duration: '${trip[0]['duration'][0]}'  ,trainNumber: '${trip[0]['train_number'][0]}');
+  }*/
+
+  fillTripData(){
+    TripModel.source='${widget.ticket['source']}';
+    TripModel.business = 'Business';
+    TripModel.destination = '${widget.ticket['destination']}';
+    TripModel.date = '${widget.ticket['departureDate']}';
+    TripModel.startTime='${trip[0]['start_time'][0]}';
+
   }
   @override
   Widget build(BuildContext context) {
@@ -186,6 +200,7 @@ class _ChooseTicketState extends State<ChooseTicket> {
 
             GestureDetector(
               onTap: () {
+                fillTripData();
                 Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
                             return PersonalInfo(ticket: {
