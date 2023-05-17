@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../pages/signin_page.dart';
 
 Widget SeatsWidget2(List<dynamic>seatStateAvalible) {
 

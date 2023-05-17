@@ -65,7 +65,8 @@ class _trips_screenState extends State<trips_screen> {
           ],
         ),
       
-      body: ListView.builder(
+      body:source==null?Center(child:Text('No Tickets Yet...',style: TextStyle(fontSize: 40,color: Colors.white),))
+      : ListView.builder(
         itemCount: 1,
         
         

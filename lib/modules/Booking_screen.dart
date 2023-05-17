@@ -27,7 +27,6 @@ class _booking_screenState extends State<booking_screen> {
   ];
 
   DateTime? departureDate;
-  
 
   String source = ' source';
   String destination = 'destination';
@@ -35,25 +34,26 @@ class _booking_screenState extends State<booking_screen> {
   int passengers = 1;
 
   String? tripId;
- Stream<QuerySnapshot> stream =
-    FirebaseFirestore.instance.collection('trips').snapshots();
-    StreamSubscription<QuerySnapshot>? subscription;
+  Stream<QuerySnapshot> stream =
+      FirebaseFirestore.instance.collection('trips').snapshots();
+  StreamSubscription<QuerySnapshot>? subscription;
 
   TicketDetails? ticketDetails;
   List TripInfo = [];
   void listenToTrips() {
-  CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
-  stream = tripRef
-      .where('source', isEqualTo: source)
-      .where('destination', isEqualTo: destination)
-      .snapshots();
+    CollectionReference tripRef =
+        FirebaseFirestore.instance.collection('trips');
+    stream = tripRef
+        .where('source', isEqualTo: source)
+        .where('destination', isEqualTo: destination)
+        .snapshots();
 
-  stream.listen((snapshot) {
-    setState(() {
-      TripInfo = snapshot.docs.map((doc) => doc.data()).toList();
+    stream.listen((snapshot) {
+      setState(() {
+        TripInfo = snapshot.docs.map((doc) => doc.data()).toList();
+      });
     });
-  });
-}
+  }
 
   getData() async {
     CollectionReference tripRef =
@@ -82,56 +82,73 @@ class _booking_screenState extends State<booking_screen> {
     print(TripInfo);
   }
 
-  @override
-void initState() {
-  super.initState();
+  //delete documentation
+  Future<void> deleteDocuments() async {
+    final collectionRef = FirebaseFirestore.instance.collection('trips');
 
-  subscription = stream.listen((data) {
-    data.docs.forEach((doc) {
-      print(doc.data());
+    // Query documents that match the criteria
+    final querySnapshot = await collectionRef
+        .where('source', isEqualTo: 'Cairo')
+        .where('destination', isEqualTo: 'Alex')
+        .get();
+
+    // Create a batched write to delete the matching documents
+    final batch = FirebaseFirestore.instance.batch();
+
+    querySnapshot.docs.forEach((doc) {
+      batch.delete(doc.reference);
     });
-  });
-}
 
-@override
-void dispose() {
-  subscription!.cancel();
-  super.dispose();
-}
+    // Commit the batched write
+    await batch.commit();
+  }
 
+  @override
+  void initState() {
+    super.initState();
+
+    subscription = stream.listen((data) {
+      data.docs.forEach((doc) {
+        print(doc.data());
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    subscription!.cancel();
+    super.dispose();
+  }
 
 // enter new trips in firebase
 
-CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
-  Future<void> addDocument()async{
-    String? source = 'Zagazig';
-    String? destination = 'Cairo';
+  CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
+  Future<void> addDocument() async {
+    String? source = 'Cairo';
+    String? destination = 'Alex';
     String? date = '12/5/2023';
-    List<String>? arival_time=['11:00:00 BM','6:00 BM'];
-    List<String>? start_time = ['9:00:00 AM','4:00 BM'];
-    List<String>? duration=['2 h','2 h'];
-    List<int>? price = [5,40];
-    List<String>? train_number=['191','192'];
+    List<String>? arival_time = ['11:00:00 BM', '6:00 BM'];
+    List<String>? start_time = ['9:00:00 AM', '4:00 BM'];
+    List<String>? duration = ['2 h', '2 h'];
+    List<int>? price = [5, 40];
+    List<String>? train_number = ['191', '192'];
     List<bool> seats = List.filled(32, true);
 
-    final data={
-      'source':source,
-      'destination':destination,
-      'date':date,
-      'arival_time':arival_time,
-      'start_time':start_time,
-      'duration':duration,
-      'price':price,
-      'train_number':train_number,
-      'seats':seats,
-
+    final data = {
+      'source': source,
+      'destination': destination,
+      'date': date,
+      'arival_time': arival_time,
+      'start_time': start_time,
+      'duration': duration,
+      'price': price,
+      'train_number': train_number,
+      'seats': seats,
     };
-    
-      print(data);
-    await tripRef.add(data);
-  
-  }
 
+    print(data);
+    await tripRef.add(data);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -505,20 +522,19 @@ CollectionReference tripRef = FirebaseFirestore.instance.collection('trips');
                 onPressed: () async {
                   await getData();
                   await getDataInfo();
-                //  await addDocument();
+                  //await addDocument();
+                  // await deleteDocuments();
 
-                 
-
-                 Navigator.push(context, MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
                       return ChooseTicket(ticket: {
                         'passengers': passengers.toString(),
                         'source': source,
                         'destination': destination,
-                        'departureDate':'${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
+                        'departureDate':
+                            '${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
                         'docId': tripId,
                         'trip': TripInfo,
-                        
                       });
                     },
                   ));

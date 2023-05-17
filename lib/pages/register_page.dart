@@ -25,45 +25,34 @@ class _SignupPageState extends State<SignupPage> {
   TicketFirebase ticketFirebase = TicketFirebase();
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
- // String? docId = UserDataModel.userId;
 
- /* void filluserdata(){
-      UserDataModel.firstName=firstNameController.text;
-      UserDataModel.lastName=lastnameController.text;
-      UserDataModel.email=emailController.text;
-      UserDataModel.password=createpassordController.text;
-      
-  }*/
-   // create Cllection Function
   Future<void> _createUserCollection(String uid) async {
-   // filluserdata();
-    
-    
     await FirebaseFirestore.instance.collection('users').doc(uid).set({
-       'first_name' :firstNameController.text,
-       'last_name':lastnameController.text,
-       'emai':emailController.text,
-       'password':createpassordController.text,
-       'dateOfBirth':'',
-       'gender':'',
-       'nationalId':'',
-       'phoneNumber':'',
-       'id':uid,
+      'first_name': firstNameController.text,
+      'last_name': lastnameController.text,
+      'emai': emailController.text,
+      'password': createpassordController.text,
+      'dateOfBirth': '',
+      'gender': '',
+      'nationalId': '',
+      'phoneNumber': '',
+      'id': uid,
     });
     UserDataModel.userId = uid;
   }
-  
+
   Future<void> _signUp() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: createpassordController.text,
       );
-      
+
       if (userCredential.user != null) {
         await _createUserCollection(userCredential.user!.uid);
         // Navigate to the home screen
-         Navigator.pushAndRemoveUntil(
+        Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) => mesafer_layout(),
@@ -79,12 +68,9 @@ class _SignupPageState extends State<SignupPage> {
       }
     } catch (e) {
       // Handle other errors
-       showSnackBar(context, 'there was an error');
+      showSnackBar(context, 'there was an error');
     }
   }
-
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -101,10 +87,10 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
             child: ListView(
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
-             // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height*.05,),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .05,
+                ),
                 Center(
                   child: Text(
                     'Sign UP',
@@ -140,7 +126,6 @@ class _SignupPageState extends State<SignupPage> {
                                         controller: firstNameController,
                                         type: TextInputType.name,
                                         onSubmitte: (String value) {
-                                    
                                           print(value);
                                         },
                                         label: Text(
@@ -159,11 +144,9 @@ class _SignupPageState extends State<SignupPage> {
                                       child: defaultFormField(
                                         controller: lastnameController,
                                         type: TextInputType.name,
-                                        onSubmitte: ( value) {
-                                        
+                                        onSubmitte: (value) {
                                           print(value);
                                         },
-                                     
                                         label: Text(
                                           'Last name',
                                           style: TextStyle(
@@ -182,10 +165,8 @@ class _SignupPageState extends State<SignupPage> {
                                 controller: emailController,
                                 type: TextInputType.emailAddress,
                                 onSubmitte: (String value) {
-                               
                                   print(value);
                                 },
-                               
                                 label: Text(
                                   'User ID / E-mail',
                                   style: TextStyle(
@@ -199,10 +180,8 @@ class _SignupPageState extends State<SignupPage> {
                                 controller: createpassordController,
                                 type: TextInputType.visiblePassword,
                                 onSubmitte: (String value) {
-                              
                                   print(value);
                                 },
-                              
                                 label: Text(
                                   'Create Passord',
                                   style: TextStyle(
@@ -218,7 +197,6 @@ class _SignupPageState extends State<SignupPage> {
                                 onSubmitte: (String value) {
                                   print(value);
                                 },
-                                
                                 label: Text(
                                   'Confirm Passord',
                                   style: TextStyle(
@@ -248,10 +226,8 @@ class _SignupPageState extends State<SignupPage> {
                           if (formKey.currentState!.validate()) {
                             isLoading = true;
                             setState(() {});
-                         
 
-                          await _signUp();
-                          
+                            await _signUp();
 
                             isLoading = false;
                             setState(() {});
