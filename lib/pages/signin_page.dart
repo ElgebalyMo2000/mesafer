@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mesafer/models/user_data_model.dart';
 import 'package:mesafer/pages/register_page.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../layout/mesafer_layout.dart';
 
 import '../shared/components/components.dart';
@@ -23,6 +23,8 @@ class _SignInPageState extends State<SignInPage> {
   bool isLoading = false;
   String? email;
   String? password;
+  bool? keepLoged= false; 
+  SharedPreferences? sharedPreferences;
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -97,23 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                                 ),
                                 Row(
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Container(
-                                        width: 25,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.black, width: 4.0),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            " ",
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    CheckBoxWidet(),
                                     SizedBox(
                                       width: 5.0,
                                     ),
@@ -241,6 +227,10 @@ class _SignInPageState extends State<SignInPage> {
     //  ),
     //   );
   }
+  Future<void> saveLoginState(bool isLoggedIn) async {
+    sharedPreferences ??= await SharedPreferences.getInstance();
+    await sharedPreferences!.setBool('isLoggedIn', isLoggedIn);
+  }
 
   Future<void> loginUser() async {
     UserCredential user = await FirebaseAuth.instance
@@ -248,6 +238,9 @@ class _SignInPageState extends State<SignInPage> {
     print('/********************************************/');
     print(user.user!.uid);
     UserDataModel.userId = user.user!.uid;
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('userId', UserDataModel.userId!);
+    await saveLoginState(true);
   }
 }
 
@@ -257,4 +250,42 @@ void showSnackBar(BuildContext context, String message) {
       content: Text(message),
     ),
   );
+}
+
+
+class CheckBoxWidet extends StatefulWidget {
+  const CheckBoxWidet({super.key});
+
+  @override
+  State<CheckBoxWidet> createState() => _CheckBoxWidetState();
+}
+
+class _CheckBoxWidetState extends State<CheckBoxWidet> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.black;
+    }
+
+    return Checkbox(
+      checkColor: Colors.white,
+      fillColor: MaterialStateProperty.resolveWith(getColor),
+      value: isChecked,
+      onChanged: (bool? value) {
+        setState(() {
+          isChecked = value!;
+        });
+      },
+    );
+  }
 }

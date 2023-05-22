@@ -11,4 +11,5 @@ static String? date;
  static String? destination;
 static String? tripId;
 static String? startTime;
+static int? seatNum;
 }

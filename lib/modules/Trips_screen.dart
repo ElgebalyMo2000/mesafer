@@ -20,6 +20,7 @@ class _trips_screenState extends State<trips_screen> {
   String? source = '';
   String? destination  = '';
   String? startTime  = '';
+  int ? seatNum = 1 ;
 
 
   fillTicket(){
@@ -30,6 +31,7 @@ class _trips_screenState extends State<trips_screen> {
     source = TripModel.source;
     destination = TripModel.destination;
     startTime = TripModel.startTime;
+    seatNum = TripModel.seatNum;
   }
   @override
   void initState() {

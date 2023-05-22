@@ -132,6 +132,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                'trainNumber':'${widget.ticket['trainNumber']}',
                                'price':'${widget.ticket['price']}',
                                'startDate':'${widget.ticket['startDate']}',
+                               'seatIndex':widget.ticket['seatIndex'],
                     }),));
                   },
                   child: Container(

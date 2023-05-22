@@ -1,12 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:mesafer/cubit/cubit.dart';
-import 'package:mesafer/cubit/states.dart';
 import 'package:mesafer/models/ticket_details_model.dart';
 import 'package:mesafer/modules/mesafer2.dart';
 
@@ -109,7 +105,7 @@ class _booking_screenState extends State<booking_screen> {
 
     subscription = stream.listen((data) {
       data.docs.forEach((doc) {
-        print(doc.data());
+       // print(doc.data());
       });
     });
   }

@@ -4,6 +4,7 @@ import 'package:mesafer/models/user_data_model.dart';
 import 'package:mesafer/pages/booking_page.dart';
 import 'package:mesafer/pages/payment_page.dart';
 import 'package:mesafer/shared/components/components.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalInfo extends StatefulWidget {
 
@@ -53,9 +54,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }*/
 
   addData() async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+String? userId = sharedPreferences.getString('userId');
     CollectionReference usersRef = FirebaseFirestore.instance.collection('users');
    // fillUserData();
-   await usersRef.doc(UserDataModel.userId).update({
+   await usersRef.doc(userId).update({
       'first_name':_firstNameController.text,
       'last_name':_lastNameController.text,
       'emai':_emailController.text,
@@ -291,6 +294,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                'trainNumber':'${widget.ticket['trainNumber']}',
                                'price':'${widget.ticket['price']}',
                                'startDate':'${widget.ticket['startDate']}',
+                               'seatIndex':widget.ticket['seatIndex'],
                         }),
                       ));
                 },

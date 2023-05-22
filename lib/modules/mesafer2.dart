@@ -16,8 +16,10 @@ class ChooseTicket extends StatefulWidget {
 class _ChooseTicketState extends State<ChooseTicket> {
   bool isSelected = false;
   List<Seat>? seats;
+  int? seatnum;
 
   void colorChange(int seatIndex) {
+    seatnum=seatIndex++;
     if (seats![seatIndex].isAvailable) {
       if (seats![seatIndex].isSelected) {
         seats![seatIndex].isSelected = false;
@@ -357,6 +359,8 @@ void colorChange(int seatIndex) {
             GestureDetector(
               onTap: () {
                 fillTripData();
+                print("seat index :  ${seatnum}");
+                seatnum=TripModel.seatNum;
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return PersonalInfo(ticket: {
@@ -368,6 +372,7 @@ void colorChange(int seatIndex) {
                       'trainNumber': '${trip[0]['train_number'][1]}',
                       'price': '${trip[0]['price'][1]}',
                       'startDate': '${trip[0]['start_time'][0]}',
+                      'seatIndex':seatnum,
                     });
                   },
                 ));

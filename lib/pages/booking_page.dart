@@ -99,7 +99,7 @@ class _BookingPageState extends State<BookingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('Coach : 01 -  ',style: TextStyle(fontSize: 23),),
-                        Text('Seat: 9',style: TextStyle(fontSize: 23),),
+                        Text('Seat: ${widget.ticket['seatIndex']}',style: TextStyle(fontSize: 23),),
                       ],
                     ),
                     SizedBox(height: 10,),

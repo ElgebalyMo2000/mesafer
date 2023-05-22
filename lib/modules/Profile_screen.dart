@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mesafer/shared/components/components.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_data_model.dart';
 
 class profile_screen extends StatefulWidget {
@@ -23,9 +24,11 @@ class _profile_screenState extends State<profile_screen> {
   var _genderController = TextEditingController();
   bool enable = false;
   List users = [];
+  
 
   @override
   void initState() {
+    
     // TODO: implement initState
     getData();
     super.initState();
@@ -236,10 +239,12 @@ class _profile_screenState extends State<profile_screen> {
   }
 
   updateData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+String? userId = sharedPreferences.getString('userId');
     CollectionReference usersRef =
         FirebaseFirestore.instance.collection('users');
 
-    await usersRef.doc(UserDataModel.userId).update({
+    await usersRef.doc(userId).update({
       'first_name': _firstNameController.text,
       'last_name': _lastNameController.text,
       'emai': _emailController.text,
@@ -258,9 +263,11 @@ class _profile_screenState extends State<profile_screen> {
   }
 
   getData() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+String? userId = sharedPreferences.getString('userId');
     DocumentReference userRef = FirebaseFirestore.instance
         .collection('users')
-        .doc(UserDataModel.userId);
+        .doc(userId);
     DocumentSnapshot snapshot = await userRef.get();
 
     if (snapshot.exists) {

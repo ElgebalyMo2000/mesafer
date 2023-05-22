@@ -15,22 +15,7 @@ class mesafer_layout extends StatelessWidget {
         builder: (context, state) {
           var cubit = AppCubit.get(context);
           return Scaffold(
-           /* appBar: AppBar(
-              title: Text('Mesafer',
-              style: TextStyle(
-               fontSize: 25.0,
-               fontWeight: FontWeight.bold, 
-              ),
-              ),
-              actions: [
-                IconButton(
-                onPressed: (){
-                Navigator.push( context, 
-              MaterialPageRoute(builder: (context)=> notifications_screen()),);
-                },
-                 icon: Icon(Icons.notifications),iconSize: 30.0,)
-              ],
-              ),*/
+            
             body: cubit.ButtomScreen[cubit.currentIndex],
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: cubit.currentIndex,
