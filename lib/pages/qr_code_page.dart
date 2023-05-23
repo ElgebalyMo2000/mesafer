@@ -33,7 +33,7 @@ class QRCodePage extends StatelessWidget {
             
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/qrcode.png',scale: 0.8,),
+              Image.asset('assets/tripInfoQRCode.png',width: MediaQuery.of(context).size.width*.7,height:MediaQuery.of(context).size.height*.5 ,),
                SizedBox(height: MediaQuery.of(context).size.height*.07,),
                 Center(
             child: GestureDetector(

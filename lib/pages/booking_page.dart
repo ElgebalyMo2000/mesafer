@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mesafer/models/trip_model.dart';
 import 'package:mesafer/pages/qr_code_page.dart';
 
 class BookingPage extends StatefulWidget {
@@ -99,7 +100,7 @@ class _BookingPageState extends State<BookingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('Coach : 01 -  ',style: TextStyle(fontSize: 23),),
-                        Text('Seat: ${widget.ticket['seatIndex']}',style: TextStyle(fontSize: 23),),
+                        Text('Seat: ${TripModel.seatNum}',style: TextStyle(fontSize: 23),),
                       ],
                     ),
                     SizedBox(height: 10,),

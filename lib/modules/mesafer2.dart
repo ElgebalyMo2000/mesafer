@@ -16,10 +16,10 @@ class ChooseTicket extends StatefulWidget {
 class _ChooseTicketState extends State<ChooseTicket> {
   bool isSelected = false;
   List<Seat>? seats;
-  int? seatnum;
+  int? seatnum = 1;
 
   void colorChange(int seatIndex) {
-    seatnum=seatIndex++;
+    seatnum=seatIndex +1;
     if (seats![seatIndex].isAvailable) {
       if (seats![seatIndex].isSelected) {
         seats![seatIndex].isSelected = false;
@@ -32,63 +32,6 @@ class _ChooseTicketState extends State<ChooseTicket> {
       seats![seatIndex].color = Colors.red;
     }
   }
-/* void colorChange(int seatIndex) {
-  if (seats![seatIndex].isAvailable) {
-    if (seats![seatIndex].isSelected) {
-      // Seat was previously selected, so deselect it
-      seats![seatIndex].isSelected = false;
-      seats![seatIndex].color = Colors.grey;
-      
-      
-      
-      // Update the Firestore document
-      FirebaseFirestore.instance.collection('trips').doc('${widget.ticket['docId']}').update({
-        'seats.${seatIndex}': false,
-      });
-    } else {
-      // Seat was not selected, so select it
-      seats![seatIndex].isSelected = true;
-      seats![seatIndex].color = Colors.green;
-      
-     
-      
-      // Update the Firestore document
-      FirebaseFirestore.instance.collection('trips').doc('${widget.ticket['docId']}').update({
-        'seats.${seatIndex}': true,
-      });
-    }
-  } else {
-    seats![seatIndex].color = Colors.red;
-  }
-}*/
-/*void updateSeatData(int seatIndex, bool isSelected) {
-
-  FirebaseFirestore.instance
-      .collection('trips')
-      .doc('${widget.ticket['docId']}')
-      .update({
-        'seats.${seatIndex}': isSelected,
-      })
-      .then((value) {
-        print('Seat data updated successfully');
-      })
-      .catchError((error) {
-        print('Failed to update seat data: $error');
-      });
-}
-void colorChange(int seatIndex) {
-  if (seats![seatIndex].isAvailable) {
-    setState(() {
-      bool newSelectedState = !seats![seatIndex].isSelected;
-      seats![seatIndex].isSelected = newSelectedState;
-      seats![seatIndex].color = newSelectedState ? Colors.green : Colors.grey;
-    });
-
-    updateSeatData(seatIndex, seats![seatIndex].isSelected);
-  } else {
-    seats![seatIndex].color = Colors.red;
-  }
-}*/
 
   listenData() async {
     FirebaseFirestore.instance.collection('trips').snapshots().listen((event) {
@@ -360,7 +303,7 @@ void colorChange(int seatIndex) {
               onTap: () {
                 fillTripData();
                 print("seat index :  ${seatnum}");
-                seatnum=TripModel.seatNum;
+                TripModel.seatNum = seatnum ;
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return PersonalInfo(ticket: {
@@ -372,7 +315,7 @@ void colorChange(int seatIndex) {
                       'trainNumber': '${trip[0]['train_number'][1]}',
                       'price': '${trip[0]['price'][1]}',
                       'startDate': '${trip[0]['start_time'][0]}',
-                      'seatIndex':seatnum,
+                      'seatIndex':{'${seatnum}'},
                     });
                   },
                 ));

@@ -516,24 +516,38 @@ class _booking_screenState extends State<booking_screen> {
                   vertical: 30),
               child: ElevatedButton(
                 onPressed: () async {
-                  await getData();
-                  await getDataInfo();
-                  //await addDocument();
-                  // await deleteDocuments();
+                   if (passengers == null ||
+                      source == null ||
+                      destination == null ||
+                      departureDate == null 
+                      ) {
+                   
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'Please fill in all the required information.'),
+                      ),
+                    );
+                  } else {
+                    await getData();
+                    await getDataInfo();
+                    //await addDocument();
+                    // await deleteDocuments();
 
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return ChooseTicket(ticket: {
-                        'passengers': passengers.toString(),
-                        'source': source,
-                        'destination': destination,
-                        'departureDate':
-                            '${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
-                        'docId': tripId,
-                        'trip': TripInfo,
-                      });
-                    },
-                  ));
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ChooseTicket(ticket: {
+                          'passengers': passengers.toString(),
+                          'source': source,
+                          'destination': destination,
+                          'departureDate':
+                              '${departureDate!.day}/${departureDate!.month}/${departureDate!.year}',
+                          'docId': tripId,
+                          'trip': TripInfo,
+                        });
+                      },
+                    ));
+                  }
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(

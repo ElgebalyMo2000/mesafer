@@ -12,7 +12,7 @@ class trips_screen extends StatefulWidget {
 class _trips_screenState extends State<trips_screen> {
   
   
-   String? date ='';
+  String? date ='';
   String? business = '';
   String? economy = '';
   String? trainNumber = '';

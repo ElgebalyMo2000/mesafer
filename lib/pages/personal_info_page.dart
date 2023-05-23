@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mesafer/models/trip_model.dart';
 import 'package:mesafer/models/user_data_model.dart';
 import 'package:mesafer/pages/booking_page.dart';
 import 'package:mesafer/pages/payment_page.dart';
@@ -142,7 +143,7 @@ String? userId = sharedPreferences.getString('userId');
                           width: 20,
                         ),
                         Text(
-                          'Seat:007',
+                          'Seat: ${TripModel.seatNum}',
                           style: TextStyle(fontSize: 20),
                         ),
                       ],
@@ -281,6 +282,7 @@ String? userId = sharedPreferences.getString('userId');
                 onTap: () async {
                   //Book function
                 await  addData();
+                print('*/*/*/**/*/*/*/*/*/*/*/ ${TripModel.seatNum}');
                 
                   Navigator.push(
                       context,
