@@ -118,7 +118,7 @@ String? userId = sharedPreferences.getString('userId');
                     Row(
                       children: [
                         Text(
-                          'Zagazig',
+                          '${widget.ticket['source']}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
@@ -127,7 +127,7 @@ String? userId = sharedPreferences.getString('userId');
                           color: Color.fromARGB(255, 235, 180, 117),
                         ),
                         Text(
-                          'Cairo',
+                          '${widget.ticket['destination']}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
